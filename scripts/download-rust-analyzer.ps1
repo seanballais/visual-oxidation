@@ -100,9 +100,6 @@ function StartJobWithSpinner
         Start-Sleep -Milliseconds 100
     }
 
-    $result = Receive-Job -Job $job
-    Write-Host $result
-
     # Clean up the console, and clear out the used space for the spinner and loading messages.
     $Host.UI.RawUI.CursorPosition = $origCursorPos
     Write-Host "$loadingScreenClearStr" -NoNewLine
@@ -212,25 +209,11 @@ try {
     Write-Host 'failed!' -ForegroundColor red
     Write-Host ''
 } finally {
-    # Check if the user pressed Ctrl+C or not by checking if we have the rust-analyzer archive and the executable.
-    # Both of them should exist if the user pressed Ctrl+C. This logic does fail when the user presses Ctrl+C after
-    # downloading the archive and extracting it or while both the archive and executable are in their expected
-    # locations as far as this script is concerned. We are also expecting that the user will only press Ctrl+C once.
-    # This check is also hacky, but this should work for now, while we are not running Main inside a job. Fortunately,
-    # the aforementioned cases should be rare enough that this logical bug is a low priority. Nevertheless, transforming
-    # this into a proper Ctrl+C interrupt check would be a great task to undertake, especially if you are new to this
-    # codebase.
-    if (-not ((Test-Path $inputFile) -and (Test-Path $outputFile))) {
-        $isCtrlCPressed = $true
-    }
-
-    # Clean up.
-    if ($isCtrlCPressed) {
-        # Stop the spinner for the currently running task, and let's print a cancelled message at the bottom.
-        Write-Host '' # Before this, we're on the same line as the spinner and loading message.
-        Write-Host ''
-        Write-Host 'Task cancelled by the user!' -ForegroundColor magenta
-    }
+    # Used to check whether the user pressed Ctrl+C or not, but it proved to be more hassle than it was
+    # worth at the present moment. We were also unable to properly capture the interrupt without relying
+    # on a hacky solution that merely checked the presence of the rust-analyzer archive and executable.
+    # So, we're just gonna ignore it for now. You may view how this script handled Ctrl+C in
+    # commit 634a06e31dc2236062194553c5129b5136c16dbd.
 
     Write-Host ''
     Write-Host 'Cleaning up the mess we created.'
@@ -242,12 +225,10 @@ try {
         Get-Job | Remove-Job -Force
     }
 
-    # Let's delete the archived copy first.
+    # Let's delete the archived copy.
     $hasCleanUpBeenPerformed = $false
     if (Test-Path $inputFile) {
-        $inputFileMBSize = (Get-Item -Path $inputFile).Length / 1MB
-
-        Write-Host "  Deleting the possibly corrupt $archiveFileName ($inputFileMBSize MB)... " -NoNewLine
+        Write-Host "  Deleting the now unnecessary $archiveFileName... " -NoNewLine
         StartJobWithSpinner "Remove-Item '$inputFile'"
 
         if (Test-Path $inputFile) {
@@ -270,13 +251,8 @@ try {
         Write-Host "$outputFile" -ForegroundColor yellow
     } else {
         Write-Host ''
-        Write-Host 'Failed to successfully obtain the latest version of rust-analyzer. ' -NoNewLine
-
-        if ($isCtrlCPressed) {
-            Write-Host 'Action cancelled by user (via Ctrl+C).' -NoNewLine
-        }
-
-        Write-Host '😭'
+        Write-Host 'Failed to successfully obtain the latest version of rust-analyzer. 😭'
+        Write-Host 'Please try again later, or update this script (via `git pull`).'
     }
 
     # Console Clean Up
