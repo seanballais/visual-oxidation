@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visual Oxidation", "Visual Oxidation.csproj", "{500EF89B-7064-4745-98F8-099835CBE4F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{500EF89B-7064-4745-98F8-099835CBE4F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{500EF89B-7064-4745-98F8-099835CBE4F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{500EF89B-7064-4745-98F8-099835CBE4F2}.Debug|x86.ActiveCfg = Debug|x86
+		{500EF89B-7064-4745-98F8-099835CBE4F2}.Debug|x86.Build.0 = Debug|x86
+		{500EF89B-7064-4745-98F8-099835CBE4F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{500EF89B-7064-4745-98F8-099835CBE4F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{500EF89B-7064-4745-98F8-099835CBE4F2}.Release|x86.ActiveCfg = Release|x86
+		{500EF89B-7064-4745-98F8-099835CBE4F2}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E9763A0-856D-480A-BC3E-FB3E3AD6264F}
+	EndGlobalSection
+EndGlobal

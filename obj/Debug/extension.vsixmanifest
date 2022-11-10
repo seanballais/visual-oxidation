@@ -1,0 +1,21 @@
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
+  <Metadata>
+    <Identity Id="Visual_Oxidation.347fa78d-b8f5-4d55-8935-4cacb7f6786e" Version="1.0" Language="en-US" Publisher="Sean Francis Ballais" />
+    <DisplayName>Visual_Oxidation</DisplayName>
+    <Description xml:space="preserve">Visual Oxidation adds Rust support to VIsual Studio via rust-analyzer.</Description>
+  </Metadata>
+  <Installation InstalledByMsi="true" AllUsers="true">
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+      <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" Version="[4.5,)" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.MefComponent" Path="Visual Oxidation.dll" />
+  </Assets>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,18.0)" DisplayName="Visual Studio core editor" />
+  </Prerequisites>
+</PackageManifest>
